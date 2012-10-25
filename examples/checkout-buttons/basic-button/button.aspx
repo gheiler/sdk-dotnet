@@ -26,8 +26,6 @@ Dictionary<String, String> data = new Dictionary<String, String> ();
     data.Add ("payer_email", "");
     data.Add ("back_url_success", "https://www.success.com");
     data.Add ("back_url_pending", "");
-    data.Add ("excluded_payment_methods_id", "");
-    data.Add ("excluded_payment_types_id", "");
 
 // Get your Mercadopago credentials (CLIENT_ID and CLIENT_SECRET): 
 // Argentina: https://www.mercadopago.com/mla/herramientas/aplicaciones 
@@ -40,10 +38,7 @@ string md5String =   "CLIENT_ID"+
                 data["item_unit_price"]+                // item_unit_price
 
                 data["item_id"]+                        // item_id
-                data["external_reference"]+             // external_reference
-                data["excluded_payment_types_id"]+      // excluded_payment_types_id
-                data["excluded_payment_methods_id"]+    // excluded_payment_methods_id
-                data["credit_card_installments"];       // credit_card_installments
+                data["external_reference"];             // external_reference
 
 // Get md5 hash
 string md5 = "";
@@ -61,14 +56,14 @@ foreach (byte a in hash) {
         <title>Checkout button with MD5 hash, using AJAX - Form</title>
     </head>
 	<body>
-		<form action="https://www.mercadopago.com/unified/MD5/checkout/pay" method="post" enctype="application/x-www-form-urlencoded" target="">
+		<form action="https://www.mercadopago.com/checkout/init" method="post" enctype="application/x-www-form-urlencoded" target="">
 			<!--Required authentication. Get the CLIENT_ID: 
 			Argentina: https://www.mercadopago.com/mla/herramientas/aplicaciones 
 			Brasil: https://www.mercadopago.com/mlb/ferramentas/aplicacoes -->	
 			<input type="hidden" name="client_id" value="CLIENT_ID"/>
 		
 			<!-- Hash MD5 -->
-			<input type="hidden" name="key" value="<%=md5%>"/>
+			<input type="hidden" name="md5" value="<%=md5%>"/>
 		   
 			<!-- Required -->
 			<input type="hidden" name="item_title" value="<%=data["item_title"]%> "/>
