@@ -1,16 +1,17 @@
-# Mercadopago SDK module for Payments integration
+# MercadoPago SDK module for Payments integration
 
 * [Usage](#usage)
-* [Using Mercadopago Checkout](#checkout)
-* [Using Mercadopago Payment collection](#payments)
+* [Using MercadoPago Checkout](#checkout)
+* [Using MercadoPago Payment collection](#payments)
 
 <a name="usage"></a>
-### Usage:
+## Usage:
 
 1. Copy bin/mercadopago.dll and bin/Newtonsoft.Json.dll to your project desired folder.
 
-* Get your credentials at [Mercadopago Developers Site](https://developers.mercadopago.com/beta/api-de-checkout#get-credentials).
-* Replace your CLIENT_ID and CLIENT_SECRET.
+* Get your **CLIENT_ID** and **CLIENT_SECRET** in the following address:
+	* Argentina: [https://www.mercadopago.com/mla/herramientas/aplicaciones](https://www.mercadopago.com/mla/herramientas/aplicaciones)
+	* Brazil: [https://www.mercadopago.com/mlb/ferramentas/aplicacoes](https://www.mercadopago.com/mlb/ferramentas/aplicacoes)
 
 ```C#
 using mercadopago;
@@ -21,9 +22,9 @@ MP mp = new MP ("CLIENT_ID", "CLIENT_SECRET");
 ```
 
 <a name="checkout"></a>
-### Using Mercadopago Checkout
+## Using MercadoPago Checkout
 
-Get an existent Checkout preference:
+### Get an existent Checkout preference:
 
 ```C#
 JObject preference = mp.getPreference("PREFERENCE_ID");
@@ -31,7 +32,7 @@ JObject preference = mp.getPreference("PREFERENCE_ID");
 Response.Write(preference);
 ```
 
-Create a Checkout preference:
+### Create a Checkout preference:
 
 ```C#
 JObject preference = mp.createPreference("{'items':[{'title':'sdk-dotnet','quantity':1,'currency_id':'ARS','unit_price':10.5}]}");    
@@ -39,7 +40,7 @@ JObject preference = mp.createPreference("{'items':[{'title':'sdk-dotnet','quant
 Response.Write(preference);
 ```
 
-Update an existent Checkout preference:
+### Update an existent Checkout preference:
 
 ```C#
 JObject preference = mp.updatePreference("PREFERENCE_ID", "{'items':[{'title':'sdk-dotnet','quantity':1,'currency_id':'USD','unit_price':2}]}");    
@@ -48,9 +49,9 @@ Response.Write(preference);
 ```
 
 <a name="payments"></a>
-### Using Mercadopago Payment
+## Using MercadoPago Payment
 
-Searching:
+### Searching:
 
 ```C#
 // Sets the filters you want
@@ -67,15 +68,19 @@ foreach (JObject payment in searchResult.SelectToken ("response.results")) {
 }
 ```
 
-Receiving IPN notification:
+### Receiving IPN notification:
 
+* Go to **Mercadopago IPN configuration**:
+	* Argentina: [https://www.mercadopago.com/mla/herramientas/notificaciones](https://www.mercadopago.com/mla/herramientas/notificaciones)
+	* Brasil: [https://www.mercadopago.com/mlb/ferramentas/notificacoes](https://www.mercadopago.com/mlb/ferramentas/notificacoes)<br />
+	
 ```C#
 JObject payment_info = mp.getPaymentInfo("ID");
 
 Response.Write(payment_info["response"]);
-```
+```    
 
-Cancel (only for pending payments):
+### Cancel (only for pending payments):
 
 ```C#
 JObject result = mp.cancelPayment("ID");
@@ -84,7 +89,7 @@ JObject result = mp.cancelPayment("ID");
 Response.Write(result);
 ```
 
-Refund (only for accredited payments):
+### Refund (only for accredited payments):
 
 ```C#
 JObject result = mp.refundPayment("ID");

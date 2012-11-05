@@ -15,7 +15,7 @@
         <title>MercadoPago SDK - Create Preference and Show Checkout Example</title>
     </head>
     <body>
-       	<a href="<% Response.Write(preference["response"]["init_point"]); %>" name="MP-payButton" class="orange-ar-m-sq-arall">Pay</a>
+       	<a href="<% Response.Write(preference["response"]["init_point"]); %>" name="MP-Checkout" class="orange-ar-m-sq-arall">Pay</a>
 		<script type="text/javascript" src="http://mp-tools.mlstatic.com/buttons/render.js"></script>
     </body>
 </html>
